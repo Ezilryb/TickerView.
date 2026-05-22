@@ -1,10 +1,8 @@
 /* ══════════════════════════════════════════════════════════════
    TICKERVIEW — Design Tokens
    src/styles/variables.css
-   Supports: [data-theme="dark"] (default) + [data-theme="light"]
 ══════════════════════════════════════════════════════════════ */
 
-/* ── DARK THEME (default) ─────────────────────────────────── */
 :root,
 [data-theme="dark"] {
   --bg-base:        #060608;
@@ -35,7 +33,6 @@
   --canvas-clear:   rgba(6,6,8,0.06);
 }
 
-/* ── LIGHT THEME ──────────────────────────────────────────── */
 [data-theme="light"] {
   --bg-base:        #F2EFE8;
   --bg-raised:      #FAF8F3;
@@ -65,7 +62,6 @@
   --canvas-clear:   rgba(242,239,232,0.08);
 }
 
-/* ── TYPOGRAPHY ───────────────────────────────────────────── */
 :root {
   --font-display:  'Barlow Condensed', sans-serif;
   --font-serif:    'Cormorant Garamond', serif;
