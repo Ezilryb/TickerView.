@@ -22,7 +22,7 @@ const SUGGESTED = [
 /* ── Constantes UI ───────────────────────────────────────── */
 const ERROR_MESSAGES = {
   network : 'Connexion au proxy impossible. Vérifie ta connexion ou l\'URL Vercel dans src/config/api.js.',
-  server  : 'Erreur serveur (proxy Vercel). Vérifie que GEMINI_API_KEY est configurée dans les variables d\'env Vercel.',
+  server  : 'Erreur serveur (proxy Vercel). Vérifie que GEMINI_API_KEY1 est configurée dans les variables d\'env Vercel.',
   timeout : 'Délai dépassé. L\'API Gemini met parfois quelques secondes — réessaie.',
   default : 'Erreur inattendue. Consulte la console pour le détail.',
 };

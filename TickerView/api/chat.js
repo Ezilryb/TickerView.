@@ -92,9 +92,9 @@ export default async function handler(req, res) {
   }
 
   // Clé API (strictement côté serveur)
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY1;
   if (!apiKey) {
-    console.error('[TickerAI] GEMINI_API_KEY manquante dans les variables d\'env Vercel');
+    console.error('[TickerAI] GEMINI_API_KEY1 manquante dans les variables d\'env Vercel');
     return res.status(500).json({ error: 'Configuration serveur incomplète' });
   }
 
