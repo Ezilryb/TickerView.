@@ -58,11 +58,14 @@
     TICKER<span class="logo-fire">VIEW</span>
   </a>
 
-  <div style="display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:0.1em;color:var(--text-secondary);">
-    <a href="index.html" style="color:var(--text-secondary);text-decoration:none;text-transform:uppercase;">Marchés</a>
-    <span style="color:var(--border)">›</span>
-    <span id="nav-sym" style="color:var(--accent);font-weight:500;text-transform:uppercase;">—</span>
-  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#instruments">Marchés</a></li>
+    <li><a href="stock.html" style="color:var(--accent)">Analyse</a></li>
+    <li><a href="compare.html">Comparer</a></li>
+  </ul>
+
+  <!-- nav-sym conservé (caché) pour compatibilité stock.js -->
+  <span id="nav-sym" style="display:none;"></span>
 
   <!-- ── Symbol Search — navigates to stock.html?sym=XXX ── -->
   <div class="sym-search-wrap" id="sym-search-wrap"

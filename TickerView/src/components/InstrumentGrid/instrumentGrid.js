@@ -40,6 +40,11 @@ export function renderInstruments(){
         <span>${t.cap !== '—' ? 'MCap ' + t.cap : t.type}</span>
       </div>
     `;
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      window.location.href = `stock.html?sym=${encodeURIComponent(t.sym)}`;
+    });
+
     grid.appendChild(card);
   });
 }
