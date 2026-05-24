@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<!-- ══════════════════════════════════════════════════════════
+     TICKERVIEW — Terminal d'Analyse (Phase P3)
+     stock.html · ?sym= pour chargement dynamique
+══════════════════════════════════════════════════════════════ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#040405">
+<title>TickerView — Terminal Orderflow</title>
+<meta name="description" content="Terminal d'analyse : graphique, orderflow delta, métriques et TickerAI.">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tickerview.app/stock">
+<meta property="og:title" content="TickerView — Terminal Orderflow">
+<meta property="og:locale" content="fr_FR">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "TickerView — Terminal Orderflow",
+  "url": "https://tickerview.app/stock"
+}
+</script>
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="src/assets/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="src/styles/variables.css">
+<link rel="stylesheet" href="src/styles/app-shell.css">
+<link rel="stylesheet" href="src/styles/command-palette.css">
+<link rel="stylesheet" href="src/styles/terminal.css">
+</head>
+<body>
+
+<div class="app-shell__grain" aria-hidden="true"></div>
+
+<div class="app-shell" id="app-shell" data-page="terminal">
+
+  <aside class="app-sidebar" role="navigation" aria-label="Navigation principale">
+    <a class="app-sidebar__brand" href="index.html" aria-label="TickerView — Accueil">
+      <span class="app-sidebar__brand-mark" aria-hidden="true">TV</span>
+      <span class="app-sidebar__brand-text">TICKER<em>VIEW</em></span>
+    </a>
+    <nav class="app-sidebar__nav">
+      <a class="app-sidebar__link" href="index.html" data-nav="home">
+        <span class="app-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></svg>
+        </span>
+        <span class="app-sidebar__label">Accueil</span>
+      </a>
+      <a class="app-sidebar__link is-active" href="stock.html" data-nav="terminal">
+        <span class="app-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7 14l3-4 3 3 4-6"/></svg>
+        </span>
+        <span class="app-sidebar__label">Terminal</span>
+      </a>
+      <a class="app-sidebar__link" href="compare.html" data-nav="compare">
+        <span class="app-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 6h6v12H4zM14 6h6v8h-6z"/><path d="M14 18h6v2h-6z"/></svg>
+        </span>
+        <span class="app-sidebar__label">Comparer</span>
+      </a>
+      <div class="app-sidebar__sep" role="separator"></div>
+      <a class="app-sidebar__link" href="#" data-nav="workspaces" title="Workspaces sauvegardés">
+        <span class="app-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+        </span>
+        <span class="app-sidebar__label">Workspaces</span>
+      </a>
+      <a class="app-sidebar__link" href="index.html#instruments" data-nav="markets">
+        <span class="app-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </span>
+        <span class="app-sidebar__label">Marchés</span>
+      </a>
+      <a class="app-sidebar__link" href="index.html#home-help" data-nav="guides">
+        <span class="app-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a3 3 0 1 1 4.2 4.2"/><path d="M12 16v1"/></svg>
+        </span>
+        <span class="app-sidebar__label">Guides</span>
+      </a>
+      <a class="app-sidebar__link" href="#" data-nav="settings" title="Phase P5">
+        <span class="app-sidebar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+        <span class="app-sidebar__label">Réglages</span>
+      </a>
+    </nav>
+    <div class="app-sidebar__footer">
+      <button type="button" class="app-sidebar__toggle" data-shell-toggle-sidebar aria-label="Replier la barre latérale" aria-expanded="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        <span class="app-sidebar__toggle-label">Replier</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <header class="app-topbar" role="banner">
+      <button type="button" class="app-topbar__search" data-shell-cmd-palette aria-label="Palette de commandes (Ctrl+K)">
+        <span class="app-topbar__search-icon" aria-hidden="true">⌕</span>
+        <span>Rechercher symbole…</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+      <div class="app-topbar__focus" aria-live="polite" aria-atomic="true">
+        <div>
+          <div class="app-topbar__symbol" data-shell-symbol>AAPL</div>
+          <div class="app-topbar__venue" data-shell-venue>NASDAQ</div>
+        </div>
+        <div class="app-topbar__price-block">
+          <span class="app-topbar__price data-value" data-shell-price>—</span>
+          <span class="app-topbar__change is-up data-value" data-shell-change>—</span>
+        </div>
+      </div>
+      <div class="app-topbar__actions">
+        <span class="app-topbar__pill app-topbar__pill--live">
+          <span class="app-topbar__live-dot" aria-hidden="true"></span>
+          LIVE
+        </span>
+        <span class="app-topbar__pill app-topbar__latency">
+          WS <strong data-shell-latency>42</strong>ms
+        </span>
+        <button type="button" class="app-topbar__ai" data-shell-toggle-ai aria-pressed="false" aria-label="Ouvrir TickerAI (Ctrl+J)">
+          TickerAI <kbd>Ctrl J</kbd>
+        </button>
+        <button type="button" class="app-topbar__flow" data-shell-toggle-flow aria-pressed="false" aria-label="Mode Flow">
+          <span>Flow</span>
+          <span class="app-topbar__flow-track" aria-hidden="true"><span class="app-topbar__flow-thumb"></span></span>
+        </button>
+        <div class="app-topbar__user-cluster">
+          <span class="app-topbar__streak" data-shell-streak aria-label="Série d'analyse">🔥 1 jour</span>
+          <button type="button" class="app-topbar__user" aria-label="Profil">
+            <span aria-hidden="true">TV</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="app-content" role="main" tabindex="-1">
+
+      <div class="terminal-workspace">
+
+        <header class="stock-header" role="banner" aria-label="Instrument et recherche">
+          <div class="stock-header__sym-block">
+            <span class="sh-sym" id="sh-sym">—</span>
+            <span class="sh-name" id="sh-name">—</span>
+            <span class="sh-exchange" id="sh-exchange">—</span>
+          </div>
+          <div class="stock-header__search">
+            <div class="sym-search-wrap" id="sym-search-wrap">
+              <span aria-hidden="true">⌕</span>
+              <input type="text" id="sym-search-input" placeholder="Symbole…" aria-label="Recherche symbole" aria-controls="sym-search-dropdown" autocomplete="off" spellcheck="false">
+              <span>↵</span>
+              <div id="sym-search-dropdown" class="sym-search-dropdown hidden" role="listbox"></div>
+            </div>
+          </div>
+          <div class="sh-price-block" aria-live="polite">
+            <span id="live-price">—</span>
+            <span id="live-change">—</span>
+            <span id="live-changepct">—</span>
+          </div>
+          <div class="sh-divider" aria-hidden="true"></div>
+          <div class="sh-ohlcv" aria-label="OHLCV"></div>
+          <button type="button" class="stock-header__toggle-profile" id="toggle-profile" aria-pressed="false" aria-label="Afficher ou masquer le profil">Profil</button>
+        </header>
+
+        <div class="terminal-grid" id="terminal-grid">
+
+          <aside class="sidebar-left" aria-label="Profil entreprise">
+            <div class="sidebar-section">
+              <div class="sidebar-label">Profil</div>
+              <div id="company-info"></div>
+            </div>
+          </aside>
+
+          <div class="terminal-center">
+            <section class="chart-panel" aria-labelledby="chart-heading">
+              <h2 id="chart-heading" class="sr-only">Graphique de prix</h2>
+              <div class="chart-toolbar" role="toolbar" aria-label="Contrôles du graphique">
+                <div class="ct-group" role="group" aria-label="Période">
+                  <button type="button" class="ct-btn" data-tf="1D">1D</button>
+                  <button type="button" class="ct-btn" data-tf="5D">5D</button>
+                  <button type="button" class="ct-btn active" data-tf="3M">3M</button>
+                  <button type="button" class="ct-btn" data-tf="6M">6M</button>
+                  <button type="button" class="ct-btn" data-tf="1Y">1A</button>
+                  <button type="button" class="ct-btn" data-tf="5Y">5A</button>
+                </div>
+                <div class="ct-group" role="group" aria-label="Type">
+                  <button type="button" class="ct-btn active" data-type="candle">Bougies</button>
+                  <button type="button" class="ct-btn" data-type="line">Ligne</button>
+                  <button type="button" class="ct-btn" data-type="mountain">Aire</button>
+                </div>
+                <div class="ct-group" role="group" aria-label="Moyennes mobiles">
+                  <button type="button" class="ct-btn active active-ma" data-ma="20">MA20</button>
+                  <button type="button" class="ct-btn active active-ma" data-ma="50">MA50</button>
+                </div>
+                <div id="chart-hover-info" aria-live="polite"></div>
+              </div>
+              <div id="chart-container" role="img" aria-label="Graphique candlestick">
+                <canvas id="chart-canvas" aria-hidden="true"></canvas>
+                <canvas id="chart-overlay" aria-hidden="true"></canvas>
+              </div>
+            </section>
+
+            <div class="orderflow-strip" id="orderflow-strip" aria-label="Orderflow temps réel">
+              <div class="of-cell">
+                <span class="of-label">Delta bougie</span>
+                <span class="of-value" data-of="delta">—</span>
+                <span class="of-sub">AggTrades · 5m</span>
+              </div>
+              <div class="of-cell">
+                <span class="of-label">CVD session</span>
+                <span class="of-value" data-of="cvd">—</span>
+                <span class="of-sub">Cumulatif</span>
+              </div>
+              <div class="of-cell">
+                <span class="of-label">Imbalances</span>
+                <span class="of-value" data-of="imbalances">—</span>
+                <span class="of-sub">Ratio ≥ 3×</span>
+              </div>
+              <div class="of-cell">
+                <span class="of-label">Trades / s</span>
+                <span class="of-value" data-of="trades">—</span>
+                <span class="of-sub">Binance WS</span>
+              </div>
+              <div class="of-cell">
+                <span class="of-label">Biais flux</span>
+                <span class="of-value" data-of="bias">—</span>
+                <span class="of-sub">Tick live</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="sidebar-right" aria-label="Métriques et actualités">
+            <div class="sidebar-section">
+              <div class="sidebar-label">Métriques clés</div>
+              <div id="financials-grid" role="list"></div>
+            </div>
+            <div class="sidebar-section" style="padding:0;">
+              <div class="sidebar-label" style="padding:12px 14px 8px;">Actualités</div>
+              <div id="news-panel" role="feed"></div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="app-statusbar" role="contentinfo" aria-label="Barre de statut">
+      <div class="app-statusbar__left">
+        <span class="app-statusbar__item"><span class="app-statusbar__dot" aria-hidden="true"></span><span>Connecté</span></span>
+        <span class="app-statusbar__item">Exchange <strong data-shell-exchange>—</strong></span>
+        <span class="app-statusbar__item">Symbole <strong data-shell-status-symbol>—</strong></span>
+      </div>
+      <div class="app-statusbar__right">
+        <span class="app-statusbar__item">Workspace <strong data-shell-workspace-name>Default</strong></span>
+        <span class="app-statusbar__item">TickerView <strong>Beta</strong></span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Panneau TickerAI coulissant (hors #app-content, dans la coque) -->
+  <aside id="app-sidebar-right" class="app-drawer-ai" aria-label="TickerAI" aria-hidden="true">
+    <div class="app-drawer-ai__head">
+      <div class="app-drawer-ai__title">
+        <span class="app-topbar__live-dot" aria-hidden="true"></span>
+        TickerAI · <span id="ai-sym-label">—</span>
+      </div>
+      <button type="button" class="app-drawer-ai__close" data-ai-drawer-close aria-label="Fermer TickerAI">×</button>
+    </div>
+    <div id="ai-panel">
+      <div class="ai-header" aria-hidden="true"></div>
+      <div id="ai-messages" role="log" aria-live="polite"></div>
+      <div id="ai-suggestions"></div>
+      <div class="ai-input-row">
+        <input type="text" id="ai-input" placeholder="Posez une question sur ce marché…" aria-label="Question TickerAI" autocomplete="off" spellcheck="false">
+        <button type="button" id="ai-send">Analyser →</button>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<script type="module" src="src/pages/Stock/stock.js"></script>
+
+</body>
+</html>
