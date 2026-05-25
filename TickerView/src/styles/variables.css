@@ -1,0 +1,10 @@
+/* ══════════════════════════════════════════════════════════════
+   TICKERVIEW — Design Tokens (point d'entrée)
+   src/styles/variables.css
+
+   Délègue à tokens-cinematic.css (Phase P1).
+   Les pages index / stock / compare importent ce fichier ;
+   app-shell.html importe directement tokens-cinematic.css.
+══════════════════════════════════════════════════════════════ */
+
+@import url('tokens-cinematic.css');

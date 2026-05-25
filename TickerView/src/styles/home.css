@@ -1,0 +1,865 @@
+/* ══════════════════════════════════════════════════════════════
+   TICKERVIEW — Home Cockpit (Phase P2)
+   src/styles/home.css
+   Contenu injecté dans #app-content uniquement.
+══════════════════════════════════════════════════════════════ */
+
+#app-content {
+  scroll-behavior: smooth;
+}
+
+.home-cockpit {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--carbon);
+}
+
+/* ── Hero compact (max ~40vh) ─────────────────────────────── */
+
+.cockpit-hero {
+  /* grid-template-rows force la hauteur de ligne à être fixe.
+     Les enfants ne peuvent PAS agrandir la ligne — c'est la seule
+     technique CSS grid qui empêche vraiment le débordement vers le bas
+     causé par du contenu JS injecté après le paint initial.          */
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 1.1fr);
+  grid-template-rows: clamp(280px, 40vh, 480px);
+  gap: 20px;
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cockpit-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cockpit-hero__eyebrow {
+  font-size: var(--size-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-xwide);
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+/* ── ✅ FIX BUG 4 : Règle CSS manquante pour <em> dans le titre hero
+   Sans cette règle, la balise <em> affichait le style italic par défaut
+   au lieu de la couleur magma (orange). Résultat : "autres ne voient pas"
+   n'apparaissait pas en orange sur la page d'accueil.
+── */
+.cockpit-hero__title em {
+  font-style: normal;
+  color: var(--magma);
+}
+
+/* ── Reprendre la session (P5) ─────────────────────────────── */
+
+.home-resume-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  border: 1px solid var(--magma-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--magma-dim), transparent);
+  animation: home-resume-in 0.45s var(--ease-out) both;
+}
+
+@keyframes home-resume-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-resume-banner__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.home-resume-banner__label {
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--magma);
+}
+
+.home-resume-banner__meta {
+  font-family: var(--font-mono);
+  font-size: var(--size-2xs);
+  color: var(--text-secondary);
+}
+
+.home-resume-banner__cta {
+  flex-shrink: 0;
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--void);
+  background: var(--magma);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.home-resume-banner__cta:hover {
+  box-shadow: var(--shadow-neon-magma);
+  transform: translateY(-1px);
+}
+
+.cockpit-hero__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.cockpit-hero__sub {
+  font-size: var(--size-sm);
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 420px;
+}
+
+.cockpit-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cockpit-hero__tag {
+  font-family: var(--font-mono);
+  font-size: var(--size-2xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 4px 8px;
+  color: var(--text-dim);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--void);
+}
+
+.cockpit-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.cockpit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 16px;
+  font-family: var(--font-ui);
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: opacity var(--transition-fast), box-shadow var(--transition-fast);
+  border: none;
+}
+
+.cockpit-btn--primary {
+  color: var(--void);
+  background: var(--magma);
+  box-shadow: var(--shadow-neon-magma);
+}
+
+.cockpit-btn--primary:hover {
+  opacity: 0.92;
+}
+
+.cockpit-btn--ghost {
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+}
+
+.cockpit-btn--ghost:hover {
+  border-color: var(--signal-border);
+  color: var(--signal);
+}
+
+.cockpit-btn--ai {
+  color: var(--signal);
+  background: var(--signal-dim);
+  border: 1px solid var(--signal-border);
+}
+
+/* Mini preview (droite hero) */
+.cockpit-preview {
+  display: flex;
+  flex-direction: column;
+  /* align-self:stretch + min-height:0 : la cellule grid définit
+     la hauteur, le panneau s'y conforme exactement sans déborder */
+  align-self: stretch;
+  min-height: 0;
+  min-width: 0;
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-md);
+  background: var(--slate);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.cockpit-preview__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--void);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cockpit-preview__tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.cockpit-preview__tab,
+.ptab {
+  font-family: var(--font-mono);
+  font-size: var(--size-2xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.cockpit-preview__tab.active,
+.ptab.active {
+  color: var(--magma);
+  background: var(--magma-dim);
+  border-color: var(--magma-border);
+}
+
+.cockpit-preview__open {
+  font-family: var(--font-mono);
+  font-size: var(--size-2xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--signal);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cockpit-preview__open:hover {
+  text-decoration: underline;
+}
+
+.cockpit-preview__frame {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* ✅ min-height:0 obligatoire : sans ça un enfant flex ne respecte
+     pas la contrainte de hauteur de son parent et pousse vers le bas */
+  min-height: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cockpit-preview__frame:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: -2px;
+}
+
+.preview-topbar {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 6px 10px;
+  background: var(--slate-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ptb-dots { display: flex; gap: 5px; }
+.ptb-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+}
+
+.ptb-meta { display: flex; flex-direction: column; gap: 1px; }
+.ptb-sym {
+  font-family: var(--font-mono);
+  font-size: var(--size-2xs);
+  letter-spacing: var(--tracking-mono);
+  color: var(--text-primary);
+}
+
+.ptb-tf {
+  font-size: var(--size-2xs);
+  color: var(--text-secondary);
+}
+
+.ptb-live {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--size-2xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--signal);
+}
+
+.ptb-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--signal);
+  animation: shell-pulse-live 2s ease-in-out infinite;
+}
+
+.preview-canvas-wrap {
+  position: relative;
+  /* ✅ flex:1 + min-height:0 + overflow:hidden = le canvas
+     s'étire pour remplir l'espace restant SANS déborder */
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--void);
+}
+
+#preview-canvas {
+  display: block;
+  /* ✅ position absolute : le canvas suit exactement le wrapper,
+     empêche tout scroll ou débordement vers le bas */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.preview-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+/* ── Ticker tape ────────────────────────────────────────────── */
+
+.cockpit-tape {
+  flex-shrink: 0;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--void);
+}
+
+.cockpit-tape .ticker-tape-inner {
+  display: flex;
+  width: max-content;
+  animation: cockpit-tape-scroll 32s linear infinite;
+}
+
+.cockpit-tape .ticker-tape-inner:hover {
+  animation-play-state: paused;
+}
+
+@keyframes cockpit-tape-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.cockpit-tape .tape-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  border: none;
+  border-right: 1px solid var(--border-subtle);
+  background: transparent;
+  white-space: nowrap;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background var(--transition-fast);
+}
+
+.cockpit-tape .tape-item:hover,
+.cockpit-tape .tape-item.is-active {
+  background: var(--signal-dim);
+}
+
+.cockpit-tape .tape-sym {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.cockpit-tape .tape-price {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.cockpit-tape .tape-chg {
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.cockpit-tape .tape-chg.up { color: var(--bid); }
+.cockpit-tape .tape-chg.dn { color: var(--ask); }
+
+/* ── Grille 3 actions ───────────────────────────────────────── */
+
+.cockpit-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.cockpit-card {
+  background: var(--slate);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+}
+
+.cockpit-card__label {
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-xwide);
+  text-transform: uppercase;
+  color: var(--magma);
+}
+
+.cockpit-card__hint {
+  font-size: var(--size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Watchlist */
+.cockpit-watchlist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cockpit-watchlist__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--void);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.cockpit-watchlist__row:hover {
+  border-color: var(--border-glow);
+  background: var(--signal-dim);
+}
+
+.cockpit-watchlist__sym {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+
+.cockpit-watchlist__name {
+  display: block;
+  font-size: var(--size-2xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.cockpit-watchlist__price {
+  font-family: var(--font-mono);
+  font-size: var(--size-sm);
+  text-align: right;
+}
+
+.cockpit-watchlist__chg {
+  font-family: var(--font-mono);
+  font-size: var(--size-2xs);
+  min-width: 52px;
+  text-align: right;
+}
+
+.cockpit-watchlist__chg.up { color: var(--bid); }
+.cockpit-watchlist__chg.dn { color: var(--ask); }
+
+/* TickerAI démo */
+.cockpit-ai__out {
+  flex: 1;
+  min-height: 72px;
+  max-height: 100px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  font-size: var(--size-sm);
+  line-height: 1.55;
+  color: var(--text-primary);
+  background: var(--void);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.cockpit-ai__out.is-loading {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.cockpit-ai__row {
+  display: flex;
+  gap: 8px;
+}
+
+.cockpit-ai__input {
+  flex: 1;
+  height: 34px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: var(--size-sm);
+  color: var(--text-primary);
+  background: var(--void);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  outline: none;
+}
+
+.cockpit-ai__input:focus {
+  border-color: var(--signal-border);
+  box-shadow: 0 0 0 1px var(--signal-dim);
+}
+
+.cockpit-ai__send {
+  height: 34px;
+  padding: 0 14px;
+  font-size: var(--size-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--void);
+  background: var(--signal);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.cockpit-ai__send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Comparer */
+.cockpit-compare__pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--void);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.cockpit-compare__sym {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: var(--slate-elevated);
+}
+
+.cockpit-compare__sym strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.06em;
+}
+
+.cockpit-compare__sym span {
+  font-size: var(--size-2xs);
+  color: var(--text-secondary);
+}
+
+.cockpit-compare__vs {
+  font-family: var(--font-mono);
+  font-size: var(--size-xs);
+  color: var(--text-dim);
+}
+
+.cockpit-compare__spark {
+  height: 48px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 0 4px;
+}
+
+.cockpit-compare__bar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  opacity: 0.85;
+}
+
+.cockpit-compare__bar--a { background: var(--magma); }
+.cockpit-compare__bar--b { background: var(--signal); }
+
+/* ── Instruments ────────────────────────────────────────────── */
+
+.cockpit-instruments {
+  padding: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.cockpit-instruments__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cockpit-instruments__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+
+.cockpit-instruments__count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--size-xs);
+  color: var(--text-secondary);
+}
+
+.cockpit-filters {
+  display: flex;
+  gap: 4px;
+}
+
+.cockpit-filter {
+  height: 30px;
+  padding: 0 14px;
+  font-family: var(--font-mono);
+  font-size: var(--size-2xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: var(--void);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cockpit-filter:hover {
+  color: var(--text-primary);
+  border-color: var(--border-glow);
+}
+
+.cockpit-filter.is-active {
+  color: var(--signal);
+  background: var(--signal-dim);
+  border-color: var(--signal-border);
+}
+
+.home-cockpit .instruments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+}
+
+.home-cockpit .inst-card {
+  background: var(--slate);
+  padding: 20px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.home-cockpit .inst-card:hover {
+  background: var(--slate-elevated);
+}
+
+.home-cockpit .ic-sym { color: var(--text-primary); }
+.home-cockpit .ic-badge.up {
+  color: var(--bid);
+  background: var(--bid-dim);
+  border-color: rgba(38, 166, 154, 0.25);
+}
+
+.home-cockpit .ic-badge.dn {
+  color: var(--ask);
+  background: var(--ask-dim);
+  border-color: rgba(239, 83, 80, 0.25);
+}
+
+/* ── Aide / FAQ condensée ───────────────────────────────────── */
+
+.home-help {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--void);
+}
+
+.home-help > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 20px;
+  font-family: var(--font-mono);
+  font-size: var(--size-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.home-help > summary::-webkit-details-marker { display: none; }
+
+.home-help > summary::after {
+  content: '+';
+  float: right;
+  color: var(--signal);
+}
+
+.home-help[open] > summary::after {
+  content: '−';
+}
+
+.home-help__body {
+  padding: 0 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home-help__row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  font-size: var(--size-sm);
+  line-height: 1.55;
+}
+
+.home-help__q {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.home-help__a {
+  color: var(--text-secondary);
+}
+
+.home-help__a strong {
+  color: var(--text-primary);
+}
+
+.home-footer {
+  padding: 12px 20px;
+  font-size: var(--size-2xs);
+  color: var(--text-ghost);
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .cockpit-hero {
+    grid-template-columns: 1fr;
+    /* En colonne unique : hauteur auto, la row constraint est levée */
+    grid-template-rows: auto;
+    overflow: visible;
+  }
+
+  .cockpit-hero__copy {
+    overflow: visible;
+    min-height: unset;
+  }
+
+  /* Hauteur fixe explicite quand hors du contexte grid contraint */
+  .cockpit-preview {
+    height: 240px;
+    min-height: 200px;
+  }
+
+  .cockpit-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .home-cockpit .instruments-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .home-cockpit .instruments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-help__row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* Flow mode — allège le cockpit */
+.app-shell.is-flow-mode .cockpit-hero__tags,
+.app-shell.is-flow-mode .cockpit-card__hint,
+.app-shell.is-flow-mode .home-help,
+.app-shell.is-flow-mode .home-footer {
+  display: none;
+}
