@@ -1,0 +1,40 @@
+<!-- ══════════════════════════════════════════════════════════
+     TICKERVIEW — Snippet brand logo (à copier dans chaque .html)
+     Remplace le bloc <a class="app-sidebar__brand"> existant
+
+     Dans TOUTES les pages : index.html, stock.html, compare.html
+     ET app-shell.html
+══════════════════════════════════════════════════════════════ -->
+
+<!-- AVANT (à supprimer) ────────────────────────────────────
+<a class="app-sidebar__brand" href="index.html" aria-label="TickerView — Accueil">
+  <span class="app-sidebar__brand-mark" aria-hidden="true">TV</span>
+  <span class="app-sidebar__brand-text">TICKER<em>VIEW</em></span>
+</a>
+──────────────────────────────────────────────────────────── -->
+
+<!-- APRÈS (à coller) ───────────────────────────────────── -->
+<a class="app-sidebar__brand" href="index.html" aria-label="TickerView — Accueil">
+  <span class="app-sidebar__brand-mark">
+    <img
+      class="app-sidebar__logo-img"
+      src="src/assets/icons/logo-dark.png"
+      data-logo-dark="src/assets/icons/logo-dark.png"
+      data-logo-light="src/assets/icons/logo-light.png"
+      alt="TickerView logo"
+      width="28"
+      height="28"
+    >
+  </span>
+  <span class="app-sidebar__brand-text">TICKER<em>VIEW</em></span>
+</a>
+
+<!--
+  NOTES :
+  - data-logo-dark  = chemin du logo pour data-theme="dark"
+  - data-logo-light = chemin du logo pour data-theme="light"
+  - syncLogoTheme() dans settingsPanel.js switche automatiquement
+    src selon le thème actif au chargement ET à chaque bascule
+  - width/height="28" = rendu final (PNG fourni en 56×56 = ×2 Retina)
+  - Pour compare.html le href reste "index.html" (pas de ../index.html)
+-->
